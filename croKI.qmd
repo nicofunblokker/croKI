@@ -11,7 +11,7 @@ filters:
 ---
 
 
-Optimiere deine Strategie mit der KI-App `croKI`. Basierend auf Machine Learning berechnet sie präzise Gewinnwahrscheinlichkeiten in Echtzeit. Einfache Bedienung, maximale Planungssicherheit. Nutze die Zukunft des intelligenten Gewinnens – jetzt im Browser!
+Optimiere deine Strategie mit der KI-App `croKI`. Basierend auf Machine Learning berechnet sie präzise Gewinnwahrscheinlichkeiten in Echtzeit.^[nicht] Einfache Bedienung, maximale Planungssicherheit. Nutze die Zukunft des intelligenten Gewinnens – jetzt im Browser!
 
 ```{shinylive-r}
 #| standalone: true
@@ -29,38 +29,57 @@ train_data <- structure(list(winner = c(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1,
 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 
 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 
 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 
-0, 1, 0, 0, 1, 0, 0, 1, 0), rundenPunkte_kumuliert = c(0L, 55L, 
-50L, 60L, 40L, 75L, 100L, 85L, 60L, 95L, 120L, 120L, 120L, 125L, 
-120L, 140L, 70L, 30L, 40L, 45L, 110L, 60L, 70L, 75L, 130L, 70L, 
-85L, 110L, 170L, 100L, 105L, 150L, 5L, 20L, 10L, 70L, 45L, 30L, 
-25L, 100L, 80L, 40L, 70L, 155L, 90L, 55L, 110L, 200L, 80L, 35L, 
-45L, 15L, 110L, 80L, 75L, 45L, 210L, 140L, 100L, 95L, 235L, 200L, 
-150L, 135L, 30L, 35L, 65L, 40L, 30L, 55L, 80L, 80L, 85L, 105L, 
-135L, 110L, 115L, 155L, 155L, 125L, 20L, 0L, 25L, 40L, 50L, 10L, 
-65L, 60L, 105L, 25L, 115L, 95L, 145L, 55L, 135L, 110L, 50L, 45L, 
-55L, 50L, 95L, 65L, 95L, 90L, 130L, 110L, 160L, 120L, 155L, 110L, 
-190L, 130L, 20L, 5L, 45L, 30L, 80L, 40L, 80L, 75L, 170L, 90L, 
-80L, 85L, 215L, 160L, 155L, 100L, 30L, 10L, 15L, 20L, 30L, 60L, 
-35L, 70L, 70L, 100L, 75L, 125L, 90L, 130L, 115L, 165L, 40L, 0L, 
-30L, 25L, 100L, 0L, 60L, 55L, 110L, 55L, 90L, 90L, 140L, 110L, 
-125L, 110L, 0L, 20L, 0L, 35L, 40L, 20L, 30L, 70L, 95L, 40L, 40L, 
-80L, 120L, 70L, 100L, 105L, 65L, 70L, 15L, 10L, 130L, 100L, 15L, 
-10L, 210L, 145L, 30L, 95L, 240L, 170L, 80L, 125L, 55L, 60L, 25L, 
-75L, 85L, 35L, 125L, 165L, 65L, 30L, 90L, 40L, 60L, 100L, 75L, 
-80L, 135L, 80L), Round = c(1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 3L, 
-3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 3L, 
-3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 3L, 
-3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 3L, 
-3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 3L, 
-3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 3L, 
-3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 3L, 
-3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 3L, 
-3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 3L, 
-3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 3L, 
-3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 3L, 
-3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 3L, 
-3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 2L, 2L, 2L, 3L, 3L, 3L, 
-1L, 1L, 1L, 2L, 2L, 2L, 3L, 3L, 3L), abstandZu1_kumuliert = c(60, 
+0, 1, 0, 0, 1, 0, 0, 1, 0), gesamtpunkte = c(120L, 125L, 120L, 
+140L, 120L, 125L, 120L, 140L, 120L, 125L, 120L, 140L, 120L, 125L, 
+120L, 140L, 170L, 100L, 105L, 150L, 170L, 100L, 105L, 150L, 170L, 
+100L, 105L, 150L, 170L, 100L, 105L, 150L, 90L, 55L, 110L, 200L, 
+90L, 55L, 110L, 200L, 90L, 55L, 110L, 200L, 90L, 55L, 110L, 200L, 
+235L, 200L, 150L, 135L, 235L, 200L, 150L, 135L, 235L, 200L, 150L, 
+135L, 235L, 200L, 150L, 135L, 115L, 155L, 155L, 125L, 115L, 155L, 
+155L, 125L, 115L, 155L, 155L, 125L, 115L, 155L, 155L, 125L, 145L, 
+55L, 135L, 110L, 145L, 55L, 135L, 110L, 145L, 55L, 135L, 110L, 
+145L, 55L, 135L, 110L, 155L, 110L, 190L, 130L, 155L, 110L, 190L, 
+130L, 155L, 110L, 190L, 130L, 155L, 110L, 190L, 130L, 215L, 160L, 
+155L, 100L, 215L, 160L, 155L, 100L, 215L, 160L, 155L, 100L, 215L, 
+160L, 155L, 100L, 90L, 130L, 115L, 165L, 90L, 130L, 115L, 165L, 
+90L, 130L, 115L, 165L, 90L, 130L, 115L, 165L, 140L, 110L, 125L, 
+110L, 140L, 110L, 125L, 110L, 140L, 110L, 125L, 110L, 140L, 110L, 
+125L, 110L, 120L, 70L, 100L, 105L, 120L, 70L, 100L, 105L, 120L, 
+70L, 100L, 105L, 120L, 70L, 100L, 105L, 240L, 170L, 80L, 125L, 
+240L, 170L, 80L, 125L, 240L, 170L, 80L, 125L, 240L, 170L, 80L, 
+125L, 125L, 165L, 65L, 125L, 165L, 65L, 125L, 165L, 65L, 80L, 
+135L, 80L, 80L, 135L, 80L, 80L, 135L, 80L), rundenPunkte_kumuliert = c(0L, 
+55L, 50L, 60L, 40L, 75L, 100L, 85L, 60L, 95L, 120L, 120L, 120L, 
+125L, 120L, 140L, 70L, 30L, 40L, 45L, 110L, 60L, 70L, 75L, 130L, 
+70L, 85L, 110L, 170L, 100L, 105L, 150L, 5L, 20L, 10L, 70L, 45L, 
+30L, 25L, 100L, 80L, 40L, 70L, 155L, 90L, 55L, 110L, 200L, 80L, 
+35L, 45L, 15L, 110L, 80L, 75L, 45L, 210L, 140L, 100L, 95L, 235L, 
+200L, 150L, 135L, 30L, 35L, 65L, 40L, 30L, 55L, 80L, 80L, 85L, 
+105L, 135L, 110L, 115L, 155L, 155L, 125L, 20L, 0L, 25L, 40L, 
+50L, 10L, 65L, 60L, 105L, 25L, 115L, 95L, 145L, 55L, 135L, 110L, 
+50L, 45L, 55L, 50L, 95L, 65L, 95L, 90L, 130L, 110L, 160L, 120L, 
+155L, 110L, 190L, 130L, 20L, 5L, 45L, 30L, 80L, 40L, 80L, 75L, 
+170L, 90L, 80L, 85L, 215L, 160L, 155L, 100L, 30L, 10L, 15L, 20L, 
+30L, 60L, 35L, 70L, 70L, 100L, 75L, 125L, 90L, 130L, 115L, 165L, 
+40L, 0L, 30L, 25L, 100L, 0L, 60L, 55L, 110L, 55L, 90L, 90L, 140L, 
+110L, 125L, 110L, 0L, 20L, 0L, 35L, 40L, 20L, 30L, 70L, 95L, 
+40L, 40L, 80L, 120L, 70L, 100L, 105L, 65L, 70L, 15L, 10L, 130L, 
+100L, 15L, 10L, 210L, 145L, 30L, 95L, 240L, 170L, 80L, 125L, 
+55L, 60L, 25L, 75L, 85L, 35L, 125L, 165L, 65L, 30L, 90L, 40L, 
+60L, 100L, 75L, 80L, 135L, 80L), Round = c(1L, 1L, 1L, 1L, 2L, 
+2L, 2L, 2L, 3L, 3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 
+2L, 2L, 2L, 3L, 3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 
+2L, 2L, 2L, 3L, 3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 
+2L, 2L, 2L, 3L, 3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 
+2L, 2L, 2L, 3L, 3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 
+2L, 2L, 2L, 3L, 3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 
+2L, 2L, 2L, 3L, 3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 
+2L, 2L, 2L, 3L, 3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 
+2L, 2L, 2L, 3L, 3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 
+2L, 2L, 2L, 3L, 3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 
+2L, 2L, 2L, 3L, 3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 1L, 2L, 
+2L, 2L, 2L, 3L, 3L, 3L, 3L, 4L, 4L, 4L, 4L, 1L, 1L, 1L, 2L, 2L, 
+2L, 3L, 3L, 3L, 1L, 1L, 1L, 2L, 2L, 2L, 3L, 3L, 3L), abstandZu1_kumuliert = c(60, 
 5, 10, 0, 60, 25, 0, 15, 60, 25, 0, 0, 20, 15, 20, 0, 0, 40, 
 30, 25, 0, 50, 40, 35, 0, 60, 45, 20, 0, 70, 65, 20, 65, 50, 
 60, 0, 55, 70, 75, 0, 75, 115, 85, 0, 110, 145, 90, 0, 0, 45, 
@@ -79,7 +98,7 @@ train_data <- structure(list(winner = c(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1,
 ui <- fluidPage(
   wellPanel(
     selectInput(inputId = "round",
-                label = "Runde",
+                label = "Spielrunde",
                 choices = c(1:3),
                 selected = 1),
     sliderInput(inputId = "score",
@@ -89,7 +108,7 @@ ui <- fluidPage(
                 step = 5,
                 value = 35),
     sliderInput(inputId = "deficit",
-                label = "Abstand zum 1.",
+                label = "Punkte zu Platz 1",
                 min = 0,
                 max = 100,
                 step = 5,
@@ -103,15 +122,18 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   result <-  reactiveValues(prob = NULL)
+  result2 <-  reactiveValues(score = NULL)
   observe({
-    model <- glm(winner ~ rundenPunkte_kumuliert*Round*abstandZu1_kumuliert, data = train_data, family = "binomial")
+    LR <- glm(winner ~ rundenPunkte_kumuliert*Round*abstandZu1_kumuliert, data = train_data, family = "binomial")
+    OLS <- lm(gesamtpunkte ~ rundenPunkte_kumuliert*Round, data = train_data)
     new <- data.frame(rundenPunkte_kumuliert  = as.numeric(input$score),
                       Round = as.numeric(input$round),
                       abstandZu1_kumuliert = as.numeric(input$deficit))
-    result$prob <- predict(model, new, type = "response")
+    result$prob <- predict(LR, new, type = "response")
+    result2$score <- round(predict(OLS, new) / 5) * 5 
   })
   output$text <- renderText({
-    paste("Gewinnwahrscheinlichkeit: ", round(result$prob, 3))
+    paste0("Gewinnwahrscheinlichkeit: ", round(result$prob, 3), " (", result2$score, " Punkte)")
   })
 }
 
