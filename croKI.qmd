@@ -3,7 +3,6 @@ title: "croKI"
 format:
   html:
     theme: flatly
-    primary: "#32fbe2"
     resources: 
       - shinylive-sw.js
 filters:
