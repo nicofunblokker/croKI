@@ -2,7 +2,8 @@
 title: "croKI"
 format:
   html:
-    theme: united
+    theme: flatly
+    primary: "#32fbe2"
     resources: 
       - shinylive-sw.js
 filters:
@@ -11,7 +12,7 @@ filters:
 ---
 
 
-Optimiere deine Strategie mit unserer KI-App `croKI`. Basierend auf Machine Learning berechnet sie präzise Gewinnwahrscheinlichkeiten in Echtzeit. Einfache Bedienung, maximale Planungssicherheit. Nutze die Zukunft des intelligenten Gewinnens – jetzt im Browser!
+Optimiere deine Strategie mit der KI-App `croKI`. Basierend auf Machine Learning berechnet sie präzise Gewinnwahrscheinlichkeiten in Echtzeit. Einfache Bedienung, maximale Planungssicherheit. Nutze die Zukunft des intelligenten Gewinnens – jetzt im Browser!
 
 ```{shinylive-r}
 #| standalone: true
@@ -76,28 +77,29 @@ train_data <- structure(list(winner = c(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1,
 60, 0, 50, 40, 0, 25, 55, 0, 55)), row.names = c(NA, -210L), class = c("tbl_df", 
 "tbl", "data.frame"))
 
-# Define UI + Server 
 ui <- fluidPage(
+  wellPanel(
+    selectInput(inputId = "round",
+                label = "Runde",
+                choices = c(1:3),
+                selected = 1),
+    sliderInput(inputId = "score",
+                label = "Gesamtpunkte",
+                min = 0,
+                max = 200,
+                step = 5,
+                value = 35),
+    sliderInput(inputId = "deficit",
+                label = "Abstand zum 1.",
+                min = 0,
+                max = 100,
+                step = 5,
+                value = 10)
+  ),
   
-  selectInput(inputId = "round",
-              label = "Runde",
-              choices = c(1:3),
-              selected = 1),
-  sliderInput(inputId = "score",
-              label = "Gesamtpunkte",
-              min = 0,
-              max = 200,
-              step = 5,
-              value = 0),
-  sliderInput(inputId = "deficit",
-              label = "Abstand zum 1.",
-              min = 0,
-              max = 100,
-              step = 5,
-              value = 0),
-  
-  textOutput(outputId = "text"),
-  
+  wellPanel(
+    textOutput(outputId = "text")
+  )
 )
 
 server <- function(input, output, session) {
@@ -110,11 +112,10 @@ server <- function(input, output, session) {
     result$prob <- predict(model, new, type = "response")
   })
   output$text <- renderText({
-    print(paste("Gewinnwahrscheinlichkeit: ", round(result$prob, 3)))
+    paste("Gewinnwahrscheinlichkeit: ", round(result$prob, 3))
   })
 }
 
-# Create Shiny app ----
 shinyApp(ui = ui, server = server)
 ```
 
