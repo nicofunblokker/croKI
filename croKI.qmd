@@ -11,7 +11,7 @@ filters:
 ---
 
 
-Optimiere deine Strategie mit der KI-App `croKI`. Basierend auf Machine Learning berechnet sie präzise Gewinnwahrscheinlichkeiten in Echtzeit.^[nicht] Einfache Bedienung, maximale Planungssicherheit. Nutze die Zukunft des intelligenten Gewinnens – jetzt im Browser!
+Optimiere deine Strategie mit der KI-App `croKI`. Basierend auf Machine Learning berechnet sie präzise Gewinnwahrscheinlichkeiten in Echtzeit.^[Genauer gesagt bietet sie unpräzise Annäherungen mit zeitlichen Verzögerungen nach manueller Eingabe basierend auf lückenhaften Modellen.] Einfache Bedienung, maximale Planungssicherheit. Nutze die Zukunft des intelligenten Gewinnens – jetzt im Browser!
 
 ```{shinylive-r}
 #| standalone: true
@@ -121,19 +121,19 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-  result <-  reactiveValues(prob = NULL)
-  result2 <-  reactiveValues(score = NULL)
+  modelLR <-  reactiveValues(prob = NULL)
+  modelOLS <-  reactiveValues(score = NULL)
   observe({
-    LR <- glm(winner ~ rundenPunkte_kumuliert*Round*abstandZu1_kumuliert, data = train_data, family = "binomial")
+    LR <- glm(winner ~ rundenPunkte_kumuliert*Round + abstandZu1_kumuliert*Round, data = train_data, family = "binomial")
     OLS <- lm(gesamtpunkte ~ rundenPunkte_kumuliert*Round, data = train_data)
     new <- data.frame(rundenPunkte_kumuliert  = as.numeric(input$score),
                       Round = as.numeric(input$round),
                       abstandZu1_kumuliert = as.numeric(input$deficit))
-    result$prob <- predict(LR, new, type = "response")
-    result2$score <- round(predict(OLS, new) / 5) * 5 
+    modelLR$prob <- predict(LR, new, type = "response")
+    modelOLS$score <- round(predict(OLS, new) / 5) * 5 
   })
   output$text <- renderText({
-    paste0("Gewinnwahrscheinlichkeit: ", round(result$prob, 3), " (", result2$score, " Punkte)")
+    paste0("Gewinnwahrscheinlichkeit: ", round(modelLR$prob, 3), " (", modelOLS$score, " Punkte)")
   })
 }
 

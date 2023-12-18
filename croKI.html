@@ -175,19 +175,19 @@ ui &lt;- fluidPage(
 )
 
 server &lt;- function(input, output, session) {
-  result &lt;-  reactiveValues(prob = NULL)
-  result2 &lt;-  reactiveValues(score = NULL)
+  modelLR &lt;-  reactiveValues(prob = NULL)
+  modelOLS &lt;-  reactiveValues(score = NULL)
   observe({
-    LR &lt;- glm(winner ~ rundenPunkte_kumuliert*Round*abstandZu1_kumuliert, data = train_data, family = "binomial")
+    LR &lt;- glm(winner ~ rundenPunkte_kumuliert*Round + abstandZu1_kumuliert*Round, data = train_data, family = "binomial")
     OLS &lt;- lm(gesamtpunkte ~ rundenPunkte_kumuliert*Round, data = train_data)
     new &lt;- data.frame(rundenPunkte_kumuliert  = as.numeric(input$score),
                       Round = as.numeric(input$round),
                       abstandZu1_kumuliert = as.numeric(input$deficit))
-    result$prob &lt;- predict(LR, new, type = "response")
-    result2$score &lt;- round(predict(OLS, new) / 5) * 5 
+    modelLR$prob &lt;- predict(LR, new, type = "response")
+    modelOLS$score &lt;- round(predict(OLS, new) / 5) * 5 
   })
   output$text &lt;- renderText({
-    paste0("Gewinnwahrscheinlichkeit: ", round(result$prob, 3), " (", result2$score, " Punkte)")
+    paste0("Gewinnwahrscheinlichkeit: ", round(modelLR$prob, 3), " (", modelOLS$score, " Punkte)")
   })
 }
 
@@ -197,7 +197,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <div id="quarto-appendix" class="default"><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>nicht<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Genauer gesagt bietet sie unpräzise Annäherungen mit zeitlichen Verzögerungen nach manueller Eingabe basierend auf lückenhaften Modellen.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </aside></div></main>
 <!-- /main column -->

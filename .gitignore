@@ -5,5 +5,5 @@
 croKI.Rproj
 model.R
 select_data.R
-
 /.quarto/
+ecdf.R
