@@ -149,8 +149,7 @@ train_data &lt;- structure(list(winner = c(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1,
 60, 0, 50, 40, 0, 25, 55, 0, 55)), row.names = c(NA, -210L), class = c("tbl_df", 
 "tbl", "data.frame"))
 
-LR &lt;- glm(winner ~ rundenPunkte_kumuliert*Round + abstandZu1_kumuliert*Round, data = train_data, family = "binomial")
-OLS &lt;- lm(gesamtpunkte ~ rundenPunkte_kumuliert*Round, data = train_data)
+
 
 ui &lt;- fluidPage(
   wellPanel(
@@ -180,6 +179,8 @@ ui &lt;- fluidPage(
 server &lt;- function(input, output, session) {
   modelLR &lt;-  reactiveValues(prob = NULL)
   modelOLS &lt;-  reactiveValues(score = NULL)
+  LR &lt;- glm(winner ~ rundenPunkte_kumuliert*Round + abstandZu1_kumuliert*Round, data = train_data, family = "binomial")
+  OLS &lt;- lm(gesamtpunkte ~ rundenPunkte_kumuliert*Round, data = train_data)
   observe({
     new &lt;- data.frame(rundenPunkte_kumuliert  = as.numeric(input$score),
                       Round = as.numeric(input$round),
